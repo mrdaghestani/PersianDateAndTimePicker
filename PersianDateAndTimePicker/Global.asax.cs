@@ -13,6 +13,7 @@ namespace PersianDateAndTimePicker
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            new BundleConfig().RegisterBundles(System.Web.Optimization.BundleTable.Bundles);
         }
     }
 }
