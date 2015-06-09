@@ -11,21 +11,41 @@
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
-    @System.Web.Optimization.Scripts.Render("~/Scripts/webber-persianDTPickerWBehzadi")
-    @System.Web.Optimization.Styles.Render("~/Contents/webber-persianDTPickerWBehzadi")
+    @*@System.Web.Optimization.Scripts.Render("~/Scripts/webber-persianDTPickerWBehzadi")
+        @System.Web.Optimization.Styles.Render("~/Contents/webber-persianDTPickerWBehzadi")*@
 
-    @*<script src="~/Scripts/persianDatepicker.js"></script>
-        <link href="~/Contents/persianDatepicker-default.css" rel="stylesheet" />
+    <script src="~/Scripts/persianDatepicker.js"></script>
+    <link href="~/Contents/persianDatepicker-default.css" rel="stylesheet" />
 
 
-        <script src="~/Scripts/webber-persianDTPicker.js"></script>
-        <link href="~/Contents/webber-persianDTPicker.css" rel="stylesheet" />*@
+    <script src="~/Scripts/webber-persianDTPicker.js"></script>
+    <link href="~/Contents/webber-persianDTPicker.css" rel="stylesheet" />
+
+    @{
+        var data = new TestClass()
+        {
+            Value = DateTime.Now.AddDays(4),
+            Member = new Member()
+            {
+                AlarmDate = DateTime.Now.AddDays(23)
+            }
+        };
+    }
 </head>
 <body>
     <div>
         <input type="text" name="gpsLocation" class="webber-persian-dtpicker" data-type="date" /><br />
         <input type="text" name="gpsLocation" class="webber-persian-dtpicker" data-type="dateTime" /><br />
-        <input type="text" name="gpsLocation" class="webber-persian-dtpicker" data-type="time" /><br />
+        <input type="text" name="gpsLocation" class="webber-persian-dtpicker" data-type="time" /><br /><br /><br />
+        @Html.PDatePicker("datePick", DateTime.Now, PersianDTInputType.Date)<br />
+        @Html.PDatePicker("datePick", DateTime.Now, PersianDTInputType.Time)<br />
+        @Html.PDatePicker("datePick", DateTime.Now)<br /><br /><br />
+        @using (Html.BeginForm("Submit", "Home"))
+        {
+            @Html.PDatePickerFor(x => data.Member.AlarmDate)
+            @Html.PDatePickerFor(x => data.Value)
+            <input type="submit" />
+        }
     </div>
 </body>
 </html>

@@ -3,16 +3,24 @@
 });
 var webberPersianDTPickerLastId = 0;
 function webberPersianDTPickerInit(items) {
-    var webberPersianDTPickerTxtFormat = function (id, type, dev) {
-        var textboxFormat = (dev != undefined && dev != null && dev != '' ? '<td>' + dev + '</td>' : '')
-            + '<td><input type="text" id="' + id + '_#type#" /></td>';
-        return textboxFormat.replace('#type#', type);
+    var webberPersianDTPickerTxtFormat = function (id, type, dev, selectedVal) {
+        if (selectedVal == undefined || selectedVal == null) {
+            selectedVal = '';
+        }
+        if (selectedVal.toString().indexOf('/') < 0) {
+            if (isNaN(Number(selectedVal))) {
+                selectedVal = '00';
+            }
+        }
+        var textboxFormat = ((dev != undefined && dev != null && dev != '' ? '<td>' + dev + '</td>' : '')
+            + '<td><input type="text" id="' + id + '_#type#" value="' + selectedVal + '" /></td>').replace('#type#', type);
+        return textboxFormat;
     };
     items.each(function () {
         var item = $(this);
         var type = item.data('type');
         if (type == undefined || type == null || type == '') {
-            type = dateTime;
+            type = 'dateTime';
         }
         var hasTime = type.indexOf('time') > -1 || type.indexOf('Time') > -1;
         var hasDate = type.indexOf('date') > -1 || type.indexOf('Date') > -1;
@@ -21,14 +29,31 @@ function webberPersianDTPickerInit(items) {
         var id = 'pdtp_' + (++webberPersianDTPickerLastId);
         item.data(itemDataIdName, id);
 
-        item.after('<table id="' + id + '" class="webber-persian-dtpicker"><tr>'
-            + (hasDate ? webberPersianDTPickerTxtFormat(id, 'date') : '')
+        var itemValue = item.val();
+        var date = '';
+        var hour = '';
+        var minute = '';
+        var second = '';
+        if (itemValue != null && itemValue != '' && itemValue != undefined) {
+            var splitedVal = itemValue.toString().split(' ');
+            if (splitedVal.length > 1) {
+                var date = splitedVal[0];
+                var timeSplited = splitedVal[1].split(':');
+
+                var hour = timeSplited.length > 0 ? timeSplited[0] : '';
+                var minute = timeSplited.length > 1 ? timeSplited[1] : '';
+                var second = timeSplited.length > 2 ? timeSplited[2] : '';
+            }
+        }
+        var ttag = '<table id="' + id + '" class="webber-persian-dtpicker"><tr>'
+            + (hasDate ? webberPersianDTPickerTxtFormat(id, 'date', '', date) : '')
             + (hasTime ?
-                (webberPersianDTPickerTxtFormat(id, 'hour', (hasDate ? ' ' : null))
-                + webberPersianDTPickerTxtFormat(id, 'minute', ':')
-                + webberPersianDTPickerTxtFormat(id, 'second', ':'))
+                (webberPersianDTPickerTxtFormat(id, 'hour', (hasDate ? ' ' : null), hour)
+                + webberPersianDTPickerTxtFormat(id, 'minute', ':', minute)
+                + webberPersianDTPickerTxtFormat(id, 'second', ':', second))
                 : '')
-            + '</tr></table>');
+            + '</tr></table>';
+        item.after(ttag);
 
         $('#' + id + '_date').persianDatepicker({
             formatDate: "YYYY/0M/0D",
@@ -67,6 +92,8 @@ function webberPersianDTPickerInit(items) {
                 + ':' + (isNaN(minute) ? '00' : (minute > 9 ? minute : ('0' + minute)))
                 + ':' + (isNaN(second) ? '00' : (second > 9 ? second : ('0' + second)))) : ''));
         });
+
+        $('table#' + id + ' input').change();
 
         //textbox key events
         $('table#' + id + ' input').not('[id*="_date"]').keydown(function (e) {

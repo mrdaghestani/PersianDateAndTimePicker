@@ -14,5 +14,10 @@ namespace PersianDateAndTimePicker.Controllers
         {
             return View();
         }
+
+        public ActionResult Submit(TestClass data)
+        {
+            return View(data);
+        }
 	}
 }
