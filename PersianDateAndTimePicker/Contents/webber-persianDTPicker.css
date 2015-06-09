@@ -1,0 +1,12 @@
+﻿table.webber-persian-dtpicker {
+    display: inline-block;
+}
+
+    table.webber-persian-dtpicker input {
+        width: 20px;
+        text-align: center;
+    }
+
+        table.webber-persian-dtpicker input[id*="_date"] {
+            width: 70px;
+        }
