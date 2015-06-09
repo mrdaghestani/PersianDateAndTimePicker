@@ -31,7 +31,9 @@ or Use our bundle & cdn:
 <link href="//demo.adaksys.com/PersianDateAndTimePicker/Contents/webber-persianDTPicker" rel="stylesheet" />
 
 ```
-or You can use both [behzadi/persianDatepicker](https://github.com/behzadi/persianDatepicker) & webber-persianDTPicker in one bundle:
+or You can use both [behzadi/persianDatepicker](https://github.com/behzadi/persianDatepicker) & webber-persianDTPicker in one bundle.
+
+This version is only 1.92 KB:
 ```
 <script src="//cdn.adaksys.com/jquery-1.10.2.min.js"></script>
 <script src="//demo.adaksys.com/PersianDateAndTimePicker/Scripts/webber-persianDTPickerWBehzadi"></script>
@@ -39,6 +41,7 @@ or You can use both [behzadi/persianDatepicker](https://github.com/behzadi/persi
 <link href="//demo.adaksys.com/PersianDateAndTimePicker/Contents/webber-persianDTPickerWBehzadi" rel="stylesheet" />
 
 ```
+
 
 
 ## Usage
