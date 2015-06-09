@@ -4,7 +4,7 @@ In every project I used to add [behzadi/persianDatepicker](https://github.com/be
 
 But when I started to use [MVVM](http://en.wikipedia.org/wiki/Model_View_ViewModel) architectural pattern, I decided to create input that can get both PersianDate & Time into standard c# DateTime.
 
-Her it is, and I decided to create one stand alone for other that had the same issue.
+Here it is, and I decided to create one stand alone for other that had the same issue.
 
 Enjoy...!
 
