@@ -66,10 +66,14 @@ function webberPersianDTPickerInit(items) {
 
         //bind main input on textbox changes
         $('table#' + id + ' input').change(function () {
+            var hourValue = $('#' + id + '_hour').val();
+            var minuteValue = $('#' + id + '_minute').val();
+            var secondValue = $('#' + id + '_second').val();
+
             var date = $('#' + id + '_date').val();
-            var hour = Number($('#' + id + '_hour').val());
-            var minute = Number($('#' + id + '_minute').val());
-            var second = Number($('#' + id + '_second').val());
+            var hour = Number(hourValue);
+            var minute = Number(minuteValue);
+            var second = Number(secondValue);
 
             //validation
             if (!isNaN(hour) && (hour > 23 || hour < 0)) {
@@ -88,7 +92,8 @@ function webberPersianDTPickerInit(items) {
             item.val(
                 (hasDate ? date : '')
                 + (hasDate && hasDate ? ' ' : '')
-                + (hasTime ? ((isNaN(hour) ? '00' : (hour > 9 ? hour : ('0' + hour)))
+                + (hasTime && hourValue != '' && minuteValue != '' && secondValue != ''
+                ? ((isNaN(hour) ? '00' : (hour > 9 ? hour : ('0' + hour)))
                 + ':' + (isNaN(minute) ? '00' : (minute > 9 ? minute : ('0' + minute)))
                 + ':' + (isNaN(second) ? '00' : (second > 9 ? second : ('0' + second)))) : ''));
         });
